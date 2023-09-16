@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+
+<body>
+	<h1> Employee List</h1>
+	<hr>
+	<div class="row">
+		<div class="col-6">
+			<button class="btn btn-primary">
+				<a class="linkbtn" th:href="@{/employees/FormForAdd}">Add Employee</a>
+			</button>
+		</div>
+		
+		<div class="col-6 d-flex flex-row-reverse" >
+			<div>
+				<form th:action="@{/logout}" method="post">
+					<button class="btn btn-primary" type="submit">logout</button>
+				</form>
+			</div>
+			<div>
+				Hello, <span sec:authentication="principal.username"></span>
+			</div>
+			
+		</div>
+	</div>
+	<hr>
+	<table class=" table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">First</th>
+				<th scope="col">Last</th>
+				<th scope="col">Email</th>
+				<th scope="col">Phone number</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="employee : ${employees}">
+				<td th:text="${employee.id}"></td>
+				<td th:text="${employee.firstName}"></td>
+				<td th:text="${employee.lastName}"></td>
+				<td th:text="${employee.email}"></td>
+				<td th:text="${employee.phoneNumber}"></td>
+				<td>
+
+					<button type="button" class="btn btn-success ">
+						<a th:href="@{/employees/showDetails/__${employee.id}__}" class="linkbtn">SHOW DETAILS</a>
+					</button>
+
+					<form action="#" th:action="@{/employees/formForUpdate}" th:method="post">
+						<input type="hidden" name="employeeId" th:value="${employee.id}">
+						<button type="submit" class="btn btn-primary col-md-4">UPDATE</button>
+					</form>
+
+					<button type="button" class="btn btn-danger col-md-4">
+						<a class="linkbtn" th:href="@{/employees/delete/__${employee.id}__}">DELETE</a>
+					</button>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>
