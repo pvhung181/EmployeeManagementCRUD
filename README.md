@@ -1,4 +1,5 @@
-# ManageEmployeeCRUD
+# EmployeeManagementCRUD
+
 simple employee management project using spring boot, spring security, spring data jpa, thymeleaf
 - authentication using username, password to login
 - fetch employees,user from localdatabase using spring data jpa
